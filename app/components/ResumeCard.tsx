@@ -6,8 +6,6 @@ const ResumeCard = ({
 }: {
   resume: Resume;
 }) => {
-  console.log(imagePath);
-
   return (
     <Link
       to={`/resume/${id}`}
