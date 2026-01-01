@@ -8,13 +8,6 @@ export const meta = () => [
   { title: "Remumind | Review" },
   { name: "description", content: "Detailed overview of your resume" },
 ];
-type Feedback = {
-  ATS: {
-    score: number;
-    tips: string[];
-  };
-  overallScore: number;
-};
 
 const Resume = () => {
   const { kv, fs, auth, isLoading } = usePuterStore();
@@ -63,7 +56,10 @@ const Resume = () => {
 
         setResumeUrl(pdfUrl);
         setImageUrl(imgUrl);
-        setFeedback(data.feedback);
+        const parsedFeedback = JSON.parse(JSON.parse(data.feedback));
+        console.log("PARSED FEEDBACK:", parsedFeedback);
+
+        setFeedback(parsedFeedback);
       } catch (err) {
         console.error("Xatolik:", err);
       }
@@ -73,6 +69,8 @@ const Resume = () => {
 
     loadResume();
   }, [id]);
+
+  console.log(feedback);
 
   return (
     <main className="pt-0!">
@@ -104,11 +102,11 @@ const Resume = () => {
           {feedback ? (
             <div className="flex flex-col gap-8 animate-in fade-in duration-1000">
               <Summery feedback={feedback} />{" "}
-              <ATS
+              {/* <ATS
                 score={feedback?.ATS.score || 0}
                 suggestions={feedback.ATS.tips || []}
               />{" "}
-              <Details feedback={feedback} />
+              <Details feedback={feedback} /> */}
             </div>
           ) : (
             <div>
